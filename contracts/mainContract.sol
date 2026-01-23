@@ -3,7 +3,7 @@ pragma solidity ^0.8.20;
 
 contract MainClass {
     address public owner;
-    uint price = 1000 wei;
+    uint price = 100000000000000000 wei;
     mapping(address => uint256) public balances;
 
     modifier onlyOwner() {
@@ -18,7 +18,7 @@ contract MainClass {
     function pay() external payable {
         require(msg.value == price, "Wrong amount");
         balances[msg.sender] += msg.value;
-    } 
+    }
 
     function release() external onlyOwner {
         uint amount = balances[owner];
@@ -37,25 +37,4 @@ contract MainClass {
         (bool success, ) = msg.sender.call{value: amount}("");
         require(success);
     }
-
-    
 }
-
-
-  // function PayToPostImageOnFacebookPage(
-    //     address payable yourAddress
-    // ) public payable returns (bool) {
-    //     if (msg.value == price) {
-    //         // oldbalance = getBalance();
-    //         bool success = payable(yourAddress).send(msg.value);
-    //         require(success, "Failed to send Ether");
-    //         // newbalance = getBalance();
-    //         // require(oldbalance - newbalance == price, "didnt recived the Eth");
-    //         return true;
-    //     } else {
-    //         return false;
-    //     }
-    // }
-    // function getBalance() private view returns (uint) {
-    //     return owner.balance;
-    // } 

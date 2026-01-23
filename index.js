@@ -18,19 +18,20 @@ const contract = new ethers.Contract(
   wallet,
 );
 
-
-
-
 app.post("/pay", async (req, res) => {
-    console.log(req.body.address);
-  const tx = await contract.pay(req.body.address, {
-    value: 10n,
+  console.log(req.body.address);
+  const tx = await contract.pay({
+    value : 10000n
   }); 
   await tx.wait();
+  if(!tx) {
+    res.status(401);
+  }
   console.log("value: ",  tx.value.toString());
   console.log("from: ",tx.from.toString());
   res.json({ hash: tx.hash, msg : "payment successful", success: true });
 });
+
 app.get("/finish", async (req, res) => {
   const tx = await contract.release(); 
   await tx.wait();
@@ -38,6 +39,7 @@ app.get("/finish", async (req, res) => {
   console.log("from: ",tx.from.toString());
   res.json({ hash: tx.hash, msg : "finished payment successful", success: true });
 });
+
 app.get("/refund", async (req, res) => {
   const tx = await contract.refund(); 
   await tx.wait();
@@ -46,6 +48,10 @@ app.get("/refund", async (req, res) => {
   res.json({ hash: tx.hash, msg : "refund successful", success: true });
 });
 
+
+app.get("/pay", async(req, res)=> {
+   res.json({ msg : "payment successful", success: true });
+})
 
 
 app.listen(3000, () => {
