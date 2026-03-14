@@ -21,7 +21,7 @@ const contract = new ethers.Contract(
 app.post("/pay", async (req, res) => {
   console.log(req.body.address);
   const tx = await contract.pay({
-    value : 100000000000000000n
+    value : 10000000n,
   }); 
   await tx.wait();
   if(!tx) {

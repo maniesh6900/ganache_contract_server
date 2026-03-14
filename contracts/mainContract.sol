@@ -3,7 +3,7 @@ pragma solidity ^0.8.20;
 
 contract MainClass {
     address public owner;
-    uint price = 100000000000000000 wei;
+    uint price = 10000000 wei;
     mapping(address => uint256) public balances;
 
     modifier onlyOwner() {
