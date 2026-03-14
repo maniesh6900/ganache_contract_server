@@ -48,11 +48,9 @@ app.get("/refund", async (req, res) => {
   res.json({ hash: tx.hash, msg : "refund successful", success: true });
 });
 
-
 app.get("/pay", async(req, res)=> {
    res.json({ msg : "payment successful", success: true });
 })
-
 
 app.listen(3000, () => {
   console.log("Server is running on port 3000");
